@@ -10,4 +10,4 @@ jobs:
     - uses: gorcenski/github-action-hugo-deploy-to-firebase@master
       with:
         firebase-token: ${{ secrets.mod3_firebase_deploy }}
-	site-dir: website
+        site-dir: website
