@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "mod3-89555"
+    "default": "mod3-89555",
+    "mod3": "mod3-89555"
   }
 }

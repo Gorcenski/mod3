@@ -10,4 +10,5 @@ jobs:
     - uses: gorcenski/github-action-hugo-deploy-to-firebase@master
       with:
         firebase-token: ${{ secrets.mod3_firebase_deploy }}
+        alias: mod3
         site-dir: website
