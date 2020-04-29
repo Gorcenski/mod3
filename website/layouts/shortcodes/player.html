@@ -1,0 +1,6 @@
+{{ if $.Page.Params.enablePlayer }}
+
+<div class="playerContainer">
+	<audio controls crossorigin playsinline poster="{{ $.Page.Params.featured_image }}"></audio>
+</div>
+{{ end }}

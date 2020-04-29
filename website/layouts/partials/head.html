@@ -1,5 +1,5 @@
 <head>
-<title>{{.Title}}</title>
+<title>{{.Title}}{{ with $episode := .Page.Params.episode }} — Episode {{ $episode.season }}.{{ $episode.number }}{{ end }}</title>
 
 <meta charset="utf-8">
 <meta name="X-UA-Compatible" content="IE=edge">
@@ -58,6 +58,19 @@
   }
 </style>
 {{ end }}
+{{ if $.Page.Params.enablePlayer }}
+<style>
+  .playerContainer {
+	margin: 20px auto;
+	width: 600px;
+  }
+  video {
+    width: 100%;
+  }
+</style>
+<link rel="stylesheet" href="https://cdn.plyr.io/3.6.1/plyr.css" />
+{{ end }}
+
 
 {{ if and (.Site.Params.enableGitalk) (.IsPage) }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
@@ -98,6 +111,43 @@ $(
 
 {{ if and (.Site.Params.enableValine) (.IsPage) }}
 <script src='https://unpkg.com/valine@1.4.5/dist/Valine.min.js'></script>
+{{ end }}
+
+{{ if $.Page.Params.enablePlayer }}
+<!-- Plyr resources and browser polyfills are specified in the pen settings -->
+<!-- Hls.js 0.9.x and 0.10.x both have critical bugs affecting this demo. Using fixed git hash to when it was working (0.10.0 pre-release), until https://github.com/video-dev/hls.js/issues/1790 has been resolved -->
+
+<script src="https://cdn.plyr.io/3.6.1/plyr.polyfilled.js"></script>
+<script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script>
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', () => {
+	  const source = 'https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8';
+	  const audio = document.querySelector('audio');
+	  
+	  // For more options see: https://github.com/sampotts/plyr/#options
+	  // captions.update is required for captions to work with hls.js
+	  const player = new Plyr(audio, {captions: {active: true, update: true, language: 'en'}});
+	  
+	  if (!Hls.isSupported()) {
+		audio.src = source;
+	  } else {
+		// For more Hls.js options, see https://github.com/dailymotion/hls.js
+		const hls = new Hls();
+		hls.loadSource(source);
+		hls.attachMedia(audio);
+		window.hls = hls;
+		
+		// Handle changing captions
+		player.on('languagechange', () => {
+		  // Caption support is still flaky. See: https://github.com/sampotts/plyr/issues/994
+		  setTimeout(() => hls.subtitleTrack = player.currentTrack, 50);
+		});
+	  }
+	  
+	  // Expose player so it can be used from the console
+	  window.player = player;
+	});
+  </script>
 {{ end }}
 
 </head>
