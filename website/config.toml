@@ -1,6 +1,7 @@
 baseURL = "https://mod3.show"
 languageCode = "en-us"
 title = "mod3"
+theme = "diary"
 
 [taxonomies]
    tag = "tags"

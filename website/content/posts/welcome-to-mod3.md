@@ -1,9 +1,7 @@
 ---
 title: "Welcome to mod3"
 date: 2020-04-28T18:40:17-04:00
-description: "This is a hello World post!"
 draft: false
-comment: false
 ---
 
 This is a hello World post!
