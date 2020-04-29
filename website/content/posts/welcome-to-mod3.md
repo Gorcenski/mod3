@@ -3,7 +3,7 @@ title: "Welcome to mod3"
 date: 2020-04-28T18:40:17-04:00
 draft: false
 enableKatex: true
-markup: "mmark"
+markup: "goldmark"
 ---
 
 This is a hello World post!
